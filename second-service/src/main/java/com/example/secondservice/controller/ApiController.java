@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/first-service")
+@RequestMapping("/second-service")
 public class ApiController {
 
     @GetMapping("/welcome")
