@@ -8,11 +8,7 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class CloudServiceApplication {
-
-
-
 	public static void main(String[] args) {
 		SpringApplication.run(CloudServiceApplication.class, args);
 	}
-
 }
