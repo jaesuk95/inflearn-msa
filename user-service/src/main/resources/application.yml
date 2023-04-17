@@ -3,6 +3,15 @@ server:
 spring:
   application:
     name: user-service
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+      path: h2-console
+
+greeting:
+  message: Welcome to Inflearn Simple E-Commerce
 
 eureka:
   instance:
