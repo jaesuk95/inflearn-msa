@@ -16,6 +16,14 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
         super(Config.class);
     }
 
+    @Data //getter setter
+    public static class Config{
+        //Put the configuration properties
+        private String baseMessage;
+        private boolean preLogger;  // boolean은 is~ 로 자동 생성
+        private boolean postLogger;
+    }
+
     @Override
     public GatewayFilter apply(Config config) {
         // Custom Pre Filter
@@ -33,7 +41,6 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
             //비동기 방식에서 사용 -> Mono (단일값)
             return chain.filter(exchange).then(Mono.fromRunnable(() ->
             {
-
                 if(config.isPostLogger()){
                     log.info("Global Filter end: response code -> {}", response.getStatusCode());
                 }
@@ -41,14 +48,5 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
         };
     }
 
-    @Data //getter setter
-    public static class Config{
-        //Put the configuration properties
-        private String baseMessage;
-        private boolean preLogger;  // boolean은 is~ 로 자동 생성
-        private boolean postLogger;
 
-
-
-    }
 }
