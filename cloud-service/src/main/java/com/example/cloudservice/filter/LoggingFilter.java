@@ -1,6 +1,8 @@
 package com.example.cloudservice.filter;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.OrderedGatewayFilter;
@@ -31,6 +33,7 @@ public class LoggingFilter extends AbstractGatewayFilterFactory<LoggingFilter.Co
 
             if(config.isPreLogger()){
                 log.info("logging pre filter start: request id -> {}", request.getId());
+                log.info("logging pre filter Requested URI = {}",request.getURI());
             }
 
             return chain.filter(exchange).then(Mono.fromRunnable(() -> {
@@ -39,10 +42,11 @@ public class LoggingFilter extends AbstractGatewayFilterFactory<LoggingFilter.Co
                     log.info("logging post filter end: response code -> {}", response.getStatusCode());
                 }
             }));
-        }), Ordered.HIGHEST_PRECEDENCE); //HIGHEST_PRECEDENCE 는 적용할 필터가 여러개일 때 어느것이 먼저 실행될지 우선순위를 부여함
+        }), Ordered.LOWEST_PRECEDENCE); //HIGHEST_PRECEDENCE 는 적용할 필터가 여러개일 때 어느것이 먼저 실행될지 우선순위를 부여함
         return filter;
     }
-    @Data // setter getter 함수 생성 (isPreLogger(), isPostLogger() 등)
+    // setter getter 함수 생성 (isPreLogger(), isPostLogger() 등)
+    @Getter @Setter
     public static class Config{
         // 여기에 configuration 이 있다면 삽입
         private String baseMessage;

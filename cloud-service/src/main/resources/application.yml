@@ -13,7 +13,7 @@ spring:
   cloud:
     gateway:
       default-filters:
-        - name : GlobalFilter
+        - name: GlobalFilter
           args:
             baseMessage: Spring Cloud Gateway Global Filter
             preLogger: true
@@ -30,5 +30,9 @@ spring:
           predicates:
             - Path=/second-service/**
           filters:
-            - CustomFilter
-
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: Applied LoggingFilter
+                preLogger: true
+                postLogger: true

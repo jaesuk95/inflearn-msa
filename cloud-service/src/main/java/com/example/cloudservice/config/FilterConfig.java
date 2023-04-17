@@ -23,13 +23,5 @@ public class FilterConfig {
                         .uri("http://localhost:8082/"))
                 .build();
     }
-//    @Bean
-//    public ServerCodecConfigurer serverCodecConfigurer() {
-//        return ServerCodecConfigurer.create();
-//    }
 
-//    @Bean
-//    public RouteLocatorBuilder routeLocatorBuilder() {
-//        return new RouteLocatorBuilder(context);
-//    }
 }
