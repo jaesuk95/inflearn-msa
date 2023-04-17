@@ -25,7 +25,8 @@ public class ApiController {
     }
 
     @GetMapping("/check")
-    public String check() {
-        return "Second Service Check";
+    public String check(HttpServletRequest request) {
+        log.info("Running on server port = {}", request.getServerPort());
+        return "Second Service Check on PORT:" + request.getServerPort();
     }
 }
