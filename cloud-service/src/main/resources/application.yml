@@ -38,3 +38,7 @@ spring:
                 baseMessage: Applied LoggingFilter
                 preLogger: true
                 postLogger: true
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/**
