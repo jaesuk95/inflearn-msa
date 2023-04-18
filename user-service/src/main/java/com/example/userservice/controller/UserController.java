@@ -1,6 +1,7 @@
 package com.example.userservice.controller;
 
 import com.example.userservice.controller.payload.UserRegisterPayload;
+import com.example.userservice.controller.response.UserRegisterResponse;
 import com.example.userservice.model.user.UserDto;
 import com.example.userservice.model.user.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,7 +44,9 @@ public class UserController {
 
         UserDto userDto = mapper.map(userPayload, UserDto.class);
         userService.createUser(userDto);
-        return new ResponseEntity(HttpStatus.CREATED);
+
+        UserRegisterResponse responseUser = mapper.map(userDto, UserRegisterResponse.class);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
     }
 
 }

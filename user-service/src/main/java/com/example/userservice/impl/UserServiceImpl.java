@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(userEntity);
         log.info("new user has been saved = {}", userEntity.getId());
 
-        return null;
+        UserDto returnUserDto = mapper.map(userEntity, UserDto.class);
+        return returnUserDto;
     }
 }
