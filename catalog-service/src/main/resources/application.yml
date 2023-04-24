@@ -15,15 +15,25 @@ spring:
         web-allow-others: true
       path: /h2-console
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
     show-sql: true
+    generate-ddl: true
+    # script ??? hibernate ??? ?? ???? ?? ?? ??
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
 
 eureka:
+  instance:
+    #    loadBalancing technique
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
   client:
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://127.0.0.1:8761/eureka
 
 logging:
   level:
