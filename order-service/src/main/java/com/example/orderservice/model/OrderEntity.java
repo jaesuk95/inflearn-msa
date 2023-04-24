@@ -10,6 +10,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "ORDERS")
+// Serializable 사용 이유: 가지고 있는 Object 객체를 전송하거나 다른 network 전송 또는 데이터 베이스에 보관하기 위해서 XML로 변환하는 마샬링(Marshalling) unmarshalling 하기 위해서 사용하는게 직렬화이다.
 public class OrderEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

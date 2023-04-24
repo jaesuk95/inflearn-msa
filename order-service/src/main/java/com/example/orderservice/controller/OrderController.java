@@ -8,6 +8,7 @@ import com.example.orderservice.model.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,12 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
+    private final Environment env;
+
+    @GetMapping("/welcome")
+    public String welcome() {
+        return String.format("welcome to catalogue service %s", env.getProperty("local.server.port"));
+    }
 
     @PostMapping("/{userId}/orders")
     public ResponseEntity<ResponseOrder> createOrder(
