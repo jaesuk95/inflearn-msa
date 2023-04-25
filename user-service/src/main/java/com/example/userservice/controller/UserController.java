@@ -1,5 +1,6 @@
 package com.example.userservice.controller;
 
+import com.example.userservice.controller.request.RequestLogin;
 import com.example.userservice.controller.request.RequestUser;
 import com.example.userservice.controller.response.ResponseUser;
 import com.example.userservice.model.user.UserDto;
@@ -73,5 +74,14 @@ public class UserController {
         });
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+//    @PostMapping("/login")
+//    public ResponseEntity<ResponseUser> login(
+//            @RequestBody RequestLogin requestLogin,
+//            HttpServletRequest request) {
+//
+//        userService.loadUserByUsername()
+//        return ResponseEntity.status(HttpStatus.OK);
+//    }
 
 }

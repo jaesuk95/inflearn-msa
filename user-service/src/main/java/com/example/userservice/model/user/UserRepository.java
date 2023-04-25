@@ -8,4 +8,5 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
     @Query("select u from UserEntity u where u.userId =:id")
     UserEntity findByUserId(@Param("id") String userId);
 
+    UserEntity findByEmail(String username);
 }

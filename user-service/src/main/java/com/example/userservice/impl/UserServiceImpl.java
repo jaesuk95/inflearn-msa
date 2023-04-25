@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -58,5 +60,17 @@ public class UserServiceImpl implements UserService {
         userDto.setOrders(orderList);
 
         return userDto;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity userEntity = userRepository.findByEmail(username);
+
+        if (userEntity == null) {
+            throw new UsernameNotFoundException(String.format("User not found = %s", username));
+        }
+
+        return new User(userEntity.getEmail(), userEntity.getEncryptedPwd(), true, true, true, true,
+                new ArrayList<>()); // 현재 user 권한은 없기 때문에 arrayList 으로
     }
 }
