@@ -22,9 +22,14 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/user-service")
+@RequestMapping("/user-service/")
 @RequiredArgsConstructor
 public class UserController {
+    @GetMapping("/welcome")
+    public String welcome() {
+        log.info("welcome message sent");
+        return message;
+    }
 
     private final UserService userService;
     private final Environment environment;
@@ -38,10 +43,7 @@ public class UserController {
         return String.format("User Service on PORT : %s", environment.getProperty("local.server.port"));
     }
 
-    @GetMapping("/welcome")
-    public String welcome(HttpServletRequest request) {
-        return message;
-    }
+
 
     @PostMapping("/users")
     public ResponseEntity<ResponseUser> createUser(HttpServletRequest request, @RequestBody RequestUser userPayload) {

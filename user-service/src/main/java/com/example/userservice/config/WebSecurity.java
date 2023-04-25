@@ -23,11 +23,8 @@ public class WebSecurity  {
     private final Environment env;
     private final UserService userService;
     private final ObjectPostProcessor<Object> objectPostProcessor;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     private static final String[] WHITE_LIST = {
             "/user-service/**",
@@ -55,7 +52,7 @@ public class WebSecurity  {
         return http.build();
     }
     public AuthenticationManager authenticationManager(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
         return auth.build();
     }
 
