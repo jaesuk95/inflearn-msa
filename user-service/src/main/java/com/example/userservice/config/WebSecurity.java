@@ -57,10 +57,12 @@ public class WebSecurity  {
     }
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception {
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter();
         AuthenticationManagerBuilder builder = new AuthenticationManagerBuilder(objectPostProcessor);
-        authenticationFilter.setAuthenticationManager(authenticationManager(builder));
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter(userService, env); // 생성자를 만들 떄 userService 와 env 를 전달해준다
+        authenticationFilter.setAuthenticationManager(authenticationManager(builder)); // 주석을 해도 되는 이유: setAuthenticationManager 따로 호출할 필요가 없다. authenticationFilter 에서 이미 생성했기 때문이다
         return authenticationFilter;
     }
+
+
 
 }
