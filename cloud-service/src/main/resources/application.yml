@@ -26,11 +26,11 @@ spring:
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/user-service/login
+            - Path=/login
             - Method=POST
           filters:
             - RemoveRequestHeader=Cookie # 쿠키 삭제 후 실행
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}/users
+#            - RewritePath=/user-service/(?<segment>.*), /$\{segment}/users
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
@@ -38,14 +38,14 @@ spring:
             - Method=POST
           filters:
             - RemoveRequestHeader=Cookie # 쿠키 삭제 후 실행
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}/users
+#            - RewritePath=/user-service/(?<segment>.*), /$\{segment}/users
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
             - Path=/user-service/**
           filters:
             - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+#            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 
         - id: catalogue-service
           uri: lb://CATALOGUE-SERVICE
