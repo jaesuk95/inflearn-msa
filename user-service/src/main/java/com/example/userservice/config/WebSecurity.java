@@ -26,9 +26,13 @@ public class WebSecurity  {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
+    // 필터를 통과하지 않고 권한이 필요하지 않다
+    private static final String[] PUBLIC_LIST = {
+            "/actuator/**"
+    };
+
     private static final String[] WHITE_LIST = {
-            "/user-service/**",
-            "/**"
+            "/user-service/**"
     };
 
     @Bean
@@ -38,10 +42,11 @@ public class WebSecurity  {
         http.authorizeHttpRequests(authorize -> {
                     try {
                         authorize
-                                .requestMatchers(WHITE_LIST).permitAll()
                                 .requestMatchers(PathRequest.toH2Console()).permitAll()
                                 .requestMatchers(new IpAddressMatcher("127.0.0.1")).permitAll()
                                 .requestMatchers(new IpAddressMatcher("192.168.0.4")).permitAll()
+                                .requestMatchers(PUBLIC_LIST).permitAll()
+                                .requestMatchers(WHITE_LIST).authenticated()
                                 .and()
                                 .addFilter(getAuthenticationFilter());
                     } catch (Exception e) {
