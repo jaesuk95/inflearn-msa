@@ -1,6 +1,5 @@
 package com.example.userservice.controller;
 
-import com.example.userservice.controller.request.RequestLogin;
 import com.example.userservice.controller.request.RequestUser;
 import com.example.userservice.controller.response.ResponseUser;
 import com.example.userservice.model.user.UserDto;
@@ -32,15 +31,18 @@ public class UserController {
     }
 
     private final UserService userService;
-    private final Environment environment;
+    private final Environment env;
 
     @Value("${greeting.message}")
     private String message;
 
     @GetMapping("/health_check")
     public String status(HttpServletRequest request) {
-//        return "It's working in User Service under Port:" + request.getServerPort();
-        return String.format("User Service on PORT : %s", environment.getProperty("local.server.port"));
+        return String.format("It's working in User Service"
+            + ", port(local.server.port)=" + env.getProperty("local.server.port")
+            + ", port(server.port)=" + env.getProperty("server.port")
+            + ", with token secret=" + env.getProperty("token.secret")
+            + ", with token time=" + env.getProperty("token.expiration_time"));
     }
 
 
