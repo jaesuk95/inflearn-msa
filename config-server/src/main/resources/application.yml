@@ -13,3 +13,21 @@ spring:
 #          private 일 경우
 #          username: [username]
 #          password: [password]
+
+# native file 방식 (내부 컴퓨터에서 repository 가 생성되어 있어야한다)
+#spring:
+#  application:
+#    name: config-service
+#  profiles:
+#    active: native
+#  cloud:
+#    config:
+#      server:
+#        native:
+#          search-locations: file://${user.home}/IdeaProjects/msa/git-local-repo
+##        git:
+#          #          uri: file:///Users/jaesuk/IdeaProjects/msa/git-local-repo
+##          uri: https://github.com/jaesuk95/inflearn-spring-cloud-config.git
+##          private 일 경우
+##          username: [username]
+##          password: [password]
