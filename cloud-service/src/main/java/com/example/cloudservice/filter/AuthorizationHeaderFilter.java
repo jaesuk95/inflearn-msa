@@ -1,5 +1,6 @@
 package com.example.cloudservice.filter;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,6 +65,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
     private boolean isJwtValid(String jwt) {
         boolean returnValue = true;
 
+        String property = env.getProperty("token.secret");
         String subject = null;
         try {
             subject = Jwts.parser().setSigningKey(env.getProperty("token.secret"))

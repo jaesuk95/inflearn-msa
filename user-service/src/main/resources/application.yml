@@ -20,7 +20,11 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: true
-
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 greeting:
   message: Welcome to Inflearn Simple E-Commerce
 
@@ -48,4 +52,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans
+        include: refresh, health, beans, busrefresh
