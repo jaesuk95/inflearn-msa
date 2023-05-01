@@ -6,4 +6,5 @@ spring:
       #      ecommerce.yml (ex. application.yml)
       name: ecommerce
   profiles:
-    active: dev
+    active:
+#    active: dev

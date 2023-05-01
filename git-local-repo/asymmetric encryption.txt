@@ -1,0 +1,93 @@
+$ keytool -genkeypair -alias apiEncryptionKey -keyalg RSA \
+         -dname "CN=Kenneth Lee, OU=API Development, O=joneconsulting.co.kr, L=Seoul, C=KR" \
+         -keypass "1q2w3e4r" -keystore apiEncryptionKey.jks -storepass "1q2w3e4r"
+
+CN = certification name
+OU = organisation unit
+O = organisation
+L = location
+C = country
+keystore = keystore file
+
+// apiEncryptionKey.jks 생성
+keytool -genkeypair -alias apiEncryptionKey -keyalg RSA -dname "CN=Kenneth Lee, OU=API Development, O=joneconsulting.co.kr, L=Seoul, C=KR"  -keypass "1q2w3e4r" -keystore apiEncryptionKey.jks -storepass "1q2w3e4r"
+
+
+결과 - 이것으로 복호화 할 수 있다
+jaesuk@Jaesuks-MacBook-Pro keystore % keytool -list -keystore apiEncryptionKey.jks -v
+Enter keystore password:
+Keystore type: PKCS12
+Keystore provider: SUN  // SUN 회사
+
+Your keystore contains 1 entry
+
+Alias name: apiencryptionkey
+Creation date: 2 May 2023
+Entry type: PrivateKeyEntry
+Certificate chain length: 1
+Certificate[1]:
+Owner: CN=Kenneth Lee, OU=API Development, O=joneconsulting.co.kr, L=Seoul, C=KR
+Issuer: CN=Kenneth Lee, OU=API Development, O=joneconsulting.co.kr, L=Seoul, C=KR
+Serial number: 7c2ba2eb
+Valid from: Tue May 02 01:37:14 KST 2023 until: Mon Jul 31 01:37:14 KST 2023
+Certificate fingerprints:
+Signature algorithm name: SHA256withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 3
+
+Extensions:
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+]
+]
+
+
+
+*******************************************
+*******************************************
+
+
+
+
+
+// 이 key 으로 부터 public key 를 가져오기
+jaesuk@Jaesuks-MacBook-Pro keystore % keytool -export -alias apiEncryptionKey -keystore apiEncryptionKey.jks -rfc -file trustServer.cer
+Enter keystore password:
+Certificate stored in file <trustServer.cer>
+jaesuk@Jaesuks-MacBook-Pro keystore %
+
+
+
+
+
+// publicKey.jks 생성
+jaesuk@Jaesuks-MacBook-Pro keystore % keytool -import -alias trustServer -file trustServer.cer -keystore publicKey.jks
+Enter keystore password:
+Re-enter new password:
+Owner: CN=Kenneth Lee, OU=API Development, O=joneconsulting.co.kr, L=Seoul, C=KR
+Issuer: CN=Kenneth Lee, OU=API Development, O=joneconsulting.co.kr, L=Seoul, C=KR
+Serial number: 7c2ba2eb
+Valid from: Tue May 02 01:37:14 KST 2023 until: Mon Jul 31 01:37:14 KST 2023
+Certificate fingerprints:
+Signature algorithm name: SHA256withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 3
+
+Extensions:
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+]
+]
+
+Trust this certificate? [no]:  yes
+Certificate was added to keystore
+jaesuk@Jaesuks-MacBook-Pro keystore % ls -l
+total 24
+-rw-r--r--  1 jaesuk  staff  2765 May  2 01:37 apiEncryptionKey.jks
+-rw-r--r--  1 jaesuk  staff  1255 May  2 01:47 publicKey.jks
+-rw-r--r--  1 jaesuk  staff  1279 May  2 01:41 trustServer.cer
+jaesuk@Jaesuks-MacBook-Pro keystore %

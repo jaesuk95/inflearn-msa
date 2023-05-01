@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: '{cipher}AQCRx2JDQ32YKqqih8/FCCDnb2ThVwd2OSd5/gIn6J7cXK4/NTz8juXlC/pnA9pkiroF3q9yN9eqhRKCycBjpSDQ6RZy6/36jeivTISdDkfS1zVCX5tvIUQiP0rWYlyDZZo0F6DVTXB4DF4VkWXkIfCEcOuF5RAnaEqLWoweDSbBUZe9z/LglYhAWZ3Dl1HAqTLv3lOwKU8YstQGhoXMSuM7h6kGH7r9M+mY3Wt45w6I3wldhg+4QnX80pr2d0xTS1TcKsXohIw28520uYqys+NWO5d8wfWj1sjAhQ7+g7SY1nbPAPuzNT7JVJ5QbSW+JB54XBT4vn9+XR15f/1Px5U0Zg+dUAUnEan09RW3VCwX0XI3UIt6UtQHfzl3rTQpOF8='
+#    cipher = 암호화 되어진 상태
+
+token:
+  expiration_time: 86400000
+  secret: '{cipher}AQB7uHK+tdlH1sv6BqN6QNQr1Qf6EMDekUFPQL0hhFyKHCHMY1MDhdhWMyPqvat2VZ5GU2WLGiUF5xAAsvFkPeZDCLiOhHrRkWj/UdMlh9aRMKkDGsSps/CqZ+ZeasboI9f5lpOuRSnAdrVBPDttsYYv0CKNVPnEoqvb3Y9+rcl9mKk5EYRlYwSX2gdoteSmJ9MAeuagOVzG5Kdce3WUXWDmcs4G97rw3da6QwfXzRLcjw4jpa0rThVoZirJY4KIBr5mGamXAJgRRDCeSrg7int2eqm1YQQxSqo5ppF1mGp46GL6VhFqeC80lNO4CgolIWahxTKt4PzBXWwBqPr8MhC8udOfYXZVtX/n26sFJ2EIL12BogvBhSPPs7NTnpbnrxA='
+
+gateway:
+  ip: 192.168.0.4
