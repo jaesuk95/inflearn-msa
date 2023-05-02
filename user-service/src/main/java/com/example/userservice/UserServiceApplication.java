@@ -1,5 +1,6 @@
 package com.example.userservice;
 
+import com.example.userservice.feign.FeignErrorDecoder;
 import feign.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,6 +19,13 @@ public class UserServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(UserServiceApplication.class, args);
 	}
+
+	// FeignErrorDecoder - errorDecoder 를 이용한 예외 처리
+	// FeignErrorDecoder -> @Component 으로 등록했기 때문에 여기서 따로 생성할 필요 없음
+//	@Bean
+//	public FeignErrorDecoder getFeignErrorDecoder() {
+//		return new FeignErrorDecoder();
+//	}
 
 	// debug logging
 	@Bean
