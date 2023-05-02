@@ -13,6 +13,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,10 +62,18 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
     }
 
-    @GetMapping("/users/{userId}")
-    public ResponseEntity<ResponseUser> getUserById(@PathVariable("userId") String userId) {
+//    @GetMapping("/users/{userId}")
+//    public ResponseEntity<ResponseUser> getUserById(@PathVariable("userId") String userId) {
+//        UserDto userDto = userService.getUserByUserId(userId);
+//        ResponseUser returnValue = new ModelMapper().map(userDto, ResponseUser.class);
+//        return ResponseEntity.status(HttpStatus.OK).body(returnValue);
+//    }
+
+    @GetMapping(value = "/users/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<ResponseUser> getUser(@PathVariable("userId") String userId) {
         UserDto userDto = userService.getUserByUserId(userId);
         ResponseUser returnValue = new ModelMapper().map(userDto, ResponseUser.class);
+
         return ResponseEntity.status(HttpStatus.OK).body(returnValue);
     }
 
@@ -79,13 +88,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<ResponseUser> login(
-//            @RequestBody RequestLogin requestLogin,
-//            HttpServletRequest request) {
-//
-//        userService.loadUserByUsername()
-//        return ResponseEntity.status(HttpStatus.OK);
-//    }
+
 
 }
