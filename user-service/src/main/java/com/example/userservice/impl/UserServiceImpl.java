@@ -1,10 +1,12 @@
 package com.example.userservice.impl;
 
 import com.example.userservice.controller.response.ResponseOrder;
+import com.example.userservice.feign.OrderServiceClient;
 import com.example.userservice.model.user.UserDto;
 import com.example.userservice.model.user.UserEntity;
 import com.example.userservice.model.user.UserRepository;
 import com.example.userservice.model.user.UserService;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -32,7 +34,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final Environment env;
-    private final RestTemplate restTemplate;
+//    private final RestTemplate restTemplate;
+    private final OrderServiceClient orderServiceClient;
 
     @Override
     public UserDto createUser(UserDto userDto) {
@@ -63,6 +66,7 @@ public class UserServiceImpl implements UserService {
         }
         UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
 
+        /**
         // RestTemplate 사용 방식
         // 다른 마이크로스버스에서 호출해서 데이터 가져오기 ("http://127.0.0.1:8000/order-service/%s/orders")
         String orderUrl = String.format(env.getProperty("order_service.url"), userId);
@@ -73,7 +77,17 @@ public class UserServiceImpl implements UserService {
 
         // 우리가 필요한 데이터는 body 안에 담겨있다
         List<ResponseOrder> orderList = orderListResponse.getBody();
-        userDto.setOrders(orderList);
+         */
+
+        /**
+         * FeignClient Method
+         * */
+        try {
+            List<ResponseOrder> orderList = orderServiceClient.getOrders(userId);
+            userDto.setOrders(orderList);
+        } catch (FeignException e) {
+            log.error(e.getMessage());
+        }
 
         return userDto;
     }

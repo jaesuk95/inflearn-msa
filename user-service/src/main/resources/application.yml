@@ -43,6 +43,7 @@ eureka:
 logging:
   level:
     com.example.userservice: DEBUG
+    com.example.userservice.feign: DEBUG
 
 #token:
 #  expiration_time: 86400000
