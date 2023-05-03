@@ -21,7 +21,7 @@ spring:
       path: /h2-console
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
       dialect: org.hibernate.dialect.MySQL8Dialect
       driver-class-name: com.mysql.cj.jdbc.Driver
     show-sql: true
