@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
@@ -30,7 +31,10 @@ public class OrderEntity implements Serializable {
     @Column(nullable = false, unique = true)
     private String orderId;
 
-    @Column(nullable = false, updatable = false, insertable = false)
-    @ColumnDefault(value = "CURRENT_TIMESTAMP")
-    private Date date;
+//    @Column(nullable = false, updatable = false, insertable = false)
+//    @ColumnDefault(value = "CURRENT_TIMESTAMP")
+//    private Date date;
+
+    @Column(name = "timestamp", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    public Timestamp date;
 }

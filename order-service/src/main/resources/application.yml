@@ -5,10 +5,14 @@ spring:
     name: order-service
   datasource:
 #    url: jdbc:h2:~/test
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mydb
+    username: root
+    password: admin
   h2:
     console:
       enabled: true
@@ -18,11 +22,17 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+      dialect: org.hibernate.dialect.MySQL8Dialect
+      driver-class-name: com.mysql.cj.jdbc.Driver
     show-sql: true
-    generate-ddl: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
+#  jpa:
+#    hibernate:
+#      ddl-auto: create-drop
+#    show-sql: true
+#    generate-ddl: true
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.H2Dialect
     # script ??? hibernate ??? ?? ???? ?? ?? ??
   rabbitmq:
     host: 127.0.0.1
