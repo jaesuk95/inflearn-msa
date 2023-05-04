@@ -1,7 +1,7 @@
-package com.example.catalogservice.kafka;
+package com.example.orderservice.kafka;
 
-import com.example.catalogservice.model.CatalogueEntity;
-import com.example.catalogservice.model.CatalogueRepository;
+import com.example.orderservice.model.OrderEntity;
+import com.example.orderservice.model.OrdersRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,9 +18,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class KafkaConsumer {
 
-    private final CatalogueRepository catalogueRepository;
+    private final OrdersRepository ordersRepository;
 
-    @KafkaListener(topics = "example-order-topic")
+    @KafkaListener(topics = "orders")
     public void processMessage(String kafkaMessage) {
         log.info("Kafka message: => {}", kafkaMessage);
 
@@ -32,10 +32,9 @@ public class KafkaConsumer {
             e.printStackTrace();
         }
 
-        CatalogueEntity entity = catalogueRepository.findByProductId((String) map.get("productId"));
+        OrderEntity entity = ordersRepository.findByOrderId((String) map.get("productId"));
         if (entity != null) {
-            entity.setStock(entity.getStock() - (Integer)map.get("qty"));
-            catalogueRepository.save(entity);
+
         }
 
     }

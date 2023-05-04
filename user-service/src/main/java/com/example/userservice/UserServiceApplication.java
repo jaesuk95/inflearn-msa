@@ -39,11 +39,11 @@ public class UserServiceApplication {
 	}
 
 	// RestTemplate 방식 사용하지 않고 대신 feignClient 사용
-//	@Bean
-//	@LoadBalanced // 사용 이유 : order_service: url: http://order-service
-//	public RestTemplate getRestTemplate() {
-//		return new RestTemplate();
-//	}
+	@Bean
+	@LoadBalanced // 사용 이유 : order_service: url: http://order-service
+	public RestTemplate getRestTemplate() {
+		return new RestTemplate();
+	}
 	// @LoadBalanced 사용 이유:
 	// order_service:
 	//  url: http://127.0.0.1:8000/order-service/%s/orders -> http://order-service/order-service/%s/orders 으로 변경
