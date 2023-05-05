@@ -1,12 +1,12 @@
 package com.example.orderservice.kafka.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Payload {
     private String order_id;
     private String user_id;
