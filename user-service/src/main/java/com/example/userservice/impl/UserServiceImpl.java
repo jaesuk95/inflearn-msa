@@ -92,11 +92,13 @@ public class UserServiceImpl implements UserService {
 //            log.error(e.getMessage());
 //        }
 
-        // errorDecoder 를 사용하지 때문에 try/catch 필요가 없다
+        // errorDecoder 를 사용하기 때문에 try/catch 필요가 없다
+        // errorDecoder 는 order-service 에서 URL 이 없을 때 발생하는 오류
 //        List<ResponseOrder> orderList = orderServiceClient.getOrders(userId);
 //        userDto.setOrders(orderList);
 
         // circuit breaker 방식
+        // order-service 측에서 에러가 발생해도 무시하고 데이터를 출력한다. (errorDecoder 는 오류가 발생한다.)
         CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitBreaker");
         List<ResponseOrder> orderList = circuitbreaker.run(() -> orderServiceClient.getOrders(userId),
                 throwable -> new ArrayList<>());    // <- throwable -> new ArrayList<>() 이 코드의 뜻은, orderServiceClient.getOrders(id) 에서 오류가 발생하면 비어있는 arrayList[] 으로 반환한다는 뜻이다.
