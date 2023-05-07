@@ -10,6 +10,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
+import reactor.core.publisher.Hooks;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -17,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 public class UserServiceApplication {
 
 	public static void main(String[] args) {
+//		Hooks.enableContextLossTracking();
 		SpringApplication.run(UserServiceApplication.class, args);
 	}
 

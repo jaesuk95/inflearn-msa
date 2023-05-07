@@ -8,6 +8,7 @@ import com.example.orderservice.model.OrderDto;
 import com.example.orderservice.model.OrderEntity;
 import com.example.orderservice.model.OrderService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.core.env.Environment;
@@ -22,6 +23,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/order-service")
 @RequiredArgsConstructor
+@Slf4j
 public class OrderController {
 
     private final OrderService orderService;
@@ -60,13 +62,22 @@ public class OrderController {
     }
 
     @GetMapping("/{userId}/orders")
-    public ResponseEntity<List<ResponseOrder>> getOrder(@PathVariable("userId") String userId) {
+    public ResponseEntity<List<ResponseOrder>> getOrder(@PathVariable("userId") String userId) throws Exception {
+        log.info("Before retrieve orders data");
         Iterable<OrderEntity> orderList = orderService.getOrdersByUserId(userId);
 
         List<ResponseOrder> result = new ArrayList<>();
         orderList.forEach(v -> {
             result.add(new ModelMapper().map(v, ResponseOrder.class));
         });
+
+//        try {
+//            Thread.sleep(3000);
+//            throw new Exception("TESTING 장애 발생");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        log.info("After retrieved orders Data");
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

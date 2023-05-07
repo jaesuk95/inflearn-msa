@@ -53,8 +53,14 @@ eureka:
 logging:
   level:
     com.example.orderservice: debug
+  pattern:
+    level: "%5p [TRACE_ID: %X{traceId:-}] [SPAN_ID: %X{spanId:-}]"
+
 management:
   endpoints:
     web:
       exposure:
         include: refresh, health, beans, httptrace, busrefresh
+  tracing:
+    sampling:
+      probability: 1.0
