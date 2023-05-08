@@ -60,7 +60,9 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, busrefresh
+        include: refresh, health, beans, busrefresh, info, metrics, prometheus
+    enabled-by-default: true
+  #        metrics : 항목들이 보일 것이다.
   tracing:
     sampling:
       probability: 1.0

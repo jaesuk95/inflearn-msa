@@ -5,6 +5,7 @@ import com.example.userservice.controller.response.ResponseUser;
 import com.example.userservice.model.user.UserDto;
 import com.example.userservice.model.user.UserEntity;
 import com.example.userservice.model.user.UserService;
+import io.micrometer.core.annotation.Timed;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     @GetMapping("/welcome")
+    @Timed(value = "users.welcome", longTask = true) // prometheus 에 등록
     public String welcome() {
         log.info("welcome message sent");
         return message;
@@ -38,6 +40,7 @@ public class UserController {
     private String message;
 
     @GetMapping("/health_check")
+    @Timed(value = "users.status", longTask = true) // prometheus 에 등록
     public String status(HttpServletRequest request) {
         return String.format("It's working in User Service"
             + ", port(local.server.port)=" + env.getProperty("local.server.port")
