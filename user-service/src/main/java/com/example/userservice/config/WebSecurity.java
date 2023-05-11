@@ -28,7 +28,8 @@ public class WebSecurity  {
 
     // 필터를 통과하지 않고 권한이 필요하지 않다
     private static final String[] PUBLIC_LIST = {
-            "/actuator/**"
+            "/actuator/**",
+            "/user-service/welcome"
     };
 
     private static final String[] WHITE_LIST = {
@@ -43,9 +44,9 @@ public class WebSecurity  {
                     try {
                         authorize
                                 .requestMatchers(PathRequest.toH2Console()).permitAll()
-                                .requestMatchers(new IpAddressMatcher("127.0.0.1")).permitAll()
-                                .requestMatchers(new IpAddressMatcher("192.168.0.4")).permitAll()
-                                .requestMatchers(new IpAddressMatcher("172.18.0.0/16")).permitAll() // user-service docker container <-> api gateway
+                                .requestMatchers(new IpAddressMatcher("127.0.0.1")).permitAll()     // local
+                                .requestMatchers(new IpAddressMatcher("192.168.0.4")).permitAll()   // through api-gateway
+                                .requestMatchers(new IpAddressMatcher("172.18.0.0/16")).permitAll() // through api-gateway docker container
                                 .requestMatchers(PUBLIC_LIST).permitAll()
                                 .requestMatchers(WHITE_LIST).authenticated()
                                 .and()
