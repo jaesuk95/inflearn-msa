@@ -9,12 +9,10 @@ spring:
 #    driver-class-name: org.h2.Driver
 #    username: sa
 #    password:
-#  zipkin:  # 옛날 방식 (spring 2.x.x 버전)
-#    base-url: http://localhost:9411
-#    enabled: true
-#  sleuth:
-#    sampler:
-#      probability: 1.0
+  # 옛날 방식 (spring 2.x.x 버전)
+  zipkin:
+    base-url: http://localhost:9411
+    enabled: true
   h2:
     console:
       enabled: true
@@ -33,11 +31,11 @@ spring:
     password: guest
 greeting:
   message: Welcome to Inflearn Simple E-Commerce
-
 eureka:
   instance:
 #    loadBalancing technique
-    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+#    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 #    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     #    prefer-ip-address: true
   client:
@@ -62,7 +60,11 @@ management:
       exposure:
         include: refresh, health, beans, busrefresh, info, metrics, prometheus
     enabled-by-default: true
-  #        metrics : 항목들이 보일 것이다.
   tracing:
     sampling:
       probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+#      endpoint: http://zipkin:9411/api/v2/spans
+

@@ -45,6 +45,7 @@ public class WebSecurity  {
                                 .requestMatchers(PathRequest.toH2Console()).permitAll()
                                 .requestMatchers(new IpAddressMatcher("127.0.0.1")).permitAll()
                                 .requestMatchers(new IpAddressMatcher("192.168.0.4")).permitAll()
+                                .requestMatchers(new IpAddressMatcher("172.18.0.0/16")).permitAll() // user-service docker container <-> api gateway
                                 .requestMatchers(PUBLIC_LIST).permitAll()
                                 .requestMatchers(WHITE_LIST).authenticated()
                                 .and()
