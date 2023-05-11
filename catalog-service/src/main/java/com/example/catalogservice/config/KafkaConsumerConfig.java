@@ -20,7 +20,8 @@ public class KafkaConsumerConfig {
     public ConsumerFactory<String, String> consumerFactory() {
         HashMap<String, Object> properties = new HashMap<>();
         // kafka container host
-        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.01:9092");   // 주소 입력
+//        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.01:9092");   // 주소 입력
+        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "172.18.0.101:9092");   // 주소 입력 172.18.0.101
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, "consumerGroupId");          //
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);     // topic 에 담겨있는 데이터는 json 형식, key,value 형식으로 저장되어 있어 deserializer 적용
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
