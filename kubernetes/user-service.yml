@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+      - name: user-service
+        image: jaesuk95/user-service:latest
+        ports:
+        - containerPort: 0
+        env:
+        - name: spring.cloud.config.uri
+          value: http://config-service:8888
+        - name: spring.rabbitmq.host
+          value: rabbitmq
+        - name: spring.zipkin.base-url
+          value: http://zipkin:9411
+        - name: eureka.client.serviceUrl.defaultZone
+          value: http://discovery-service:8761/eureka/
+        - name: logging.file
+          value: /api-logs/users-ws.log
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+spec:
+  selector:
+    app: user-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
